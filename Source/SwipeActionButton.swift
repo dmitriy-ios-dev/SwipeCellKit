@@ -34,6 +34,10 @@ class SwipeActionButton: UIButton {
         }
     }
     
+    private var insets: UIEdgeInsets?
+    private var maskColor: CGColor?
+    private var cornerRadius: CGFloat?
+    
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: contentEdgeInsets.top + alignmentRect.height + contentEdgeInsets.bottom)
     }
@@ -59,6 +63,10 @@ class SwipeActionButton: UIButton {
         setTitleColor(highlightedTextColor, for: .highlighted)
         setImage(action.image, for: .normal)
         setImage(action.highlightedImage ?? action.image, for: .highlighted)
+        
+        self.insets = action.insets
+        self.maskColor = action.maskColor
+        self.cornerRadius = action.cornerRadius
     }
     
     override var isHighlighted: Bool {
@@ -96,6 +104,29 @@ class SwipeActionButton: UIButton {
         var rect = contentRect.center(size: currentImage?.size ?? .zero)
         rect.origin.y = alignmentRect.minY + (imageHeight - rect.height) / 2
         return rect
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        guard
+            let insets = self.insets,
+            let maskColor = self.maskColor,
+            let cornerRadius = self.cornerRadius
+        else {
+            return
+        }
+        
+        let maskLayer = CALayer()
+        maskLayer.backgroundColor = maskColor
+        maskLayer.cornerRadius = cornerRadius
+        
+        maskLayer.frame = CGRect(x: insets.left,
+                                 y: insets.top,
+                                 width: bounds.width - insets.left - insets.right,
+                                 height: bounds.height - insets.top - insets.bottom)
+        
+        layer.insertSublayer(maskLayer, at: 0)
     }
 }
 

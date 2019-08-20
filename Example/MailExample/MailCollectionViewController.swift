@@ -133,6 +133,10 @@ extension MailCollectionViewController: SwipeCollectionViewCellDelegate {
             read.hidesWhenSelected = true
             read.accessibilityLabel = email.unread ? "Mark as Read" : "Mark as Unread"
             
+            read.maskColor = UIColor.green.cgColor
+            read.cornerRadius = 4
+            read.insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            
             let descriptor: ActionDescriptor = email.unread ? .read : .unread
             configure(action: read, with: descriptor)
             
@@ -140,6 +144,11 @@ extension MailCollectionViewController: SwipeCollectionViewCellDelegate {
         } else {
             let flag = SwipeAction(style: .default, title: nil, handler: nil)
             flag.hidesWhenSelected = true
+            
+            flag.maskColor = UIColor.green.cgColor
+            flag.cornerRadius = 4
+            flag.insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            
             configure(action: flag, with: .flag)
             
             let delete = SwipeAction(style: .destructive, title: nil) { action, indexPath in
@@ -159,6 +168,11 @@ extension MailCollectionViewController: SwipeCollectionViewCellDelegate {
                 controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: closure))
                 self.present(controller, animated: true, completion: nil)
             }
+            
+            more.maskColor = UIColor.green.cgColor
+            more.cornerRadius = 4
+            more.insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            
             configure(action: more, with: .more)
             
             return [delete, flag, more]

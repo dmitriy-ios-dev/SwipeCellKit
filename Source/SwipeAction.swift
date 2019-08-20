@@ -84,6 +84,21 @@ public class SwipeAction: NSObject {
     /// - note: When set to `true`, the actions menu is automatically hidden when the action is selected. The default value is `false`.
     public var hidesWhenSelected = false
     
+    /// The insets of the action button mask.
+    ///
+    /// - note: Use this property to specify the insets for your button. If you do not specify a value for this property, the framework dosn't make mask
+    public var insets: UIEdgeInsets?
+    
+    /// The background color of the action button mask.
+    ///
+    /// - note: Use this property to specify the mask color for your button. If you do not specify a value for this property, the framework dosn't make mask
+    public var maskColor: CGColor?
+    
+    /// The corner radius of the action button mask.
+    ///
+    /// - note: Use this property to specify the corner radius for your button. If you do not specify a value for this property, the framework dosn't make mask
+    public var cornerRadius: CGFloat?
+    
     /**
      Constructs a new `SwipeAction` instance.
 
